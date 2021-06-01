@@ -1,3 +1,8 @@
+/*
+Socket Client class
+Allows for communication of Student IDs with Master device
+*/
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

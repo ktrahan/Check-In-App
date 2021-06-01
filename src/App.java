@@ -1,4 +1,6 @@
-// Main app here
+/*
+Main program
+*/
 class App {
 
 }

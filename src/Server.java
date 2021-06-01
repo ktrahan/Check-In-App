@@ -1,3 +1,8 @@
+/*
+Socket Server class\
+Handles client connections and distributes student IDs to all connected clients
+*/
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;

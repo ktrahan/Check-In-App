@@ -1,3 +1,7 @@
+/*
+Test program demonstrating how to use Server.java (Socket Server) and ServerSocketThread.java (Socket Client)
+*/
+
 import java.io.IOException;
 
 public class Test {
