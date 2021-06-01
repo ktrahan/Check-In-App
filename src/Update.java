@@ -1,14 +1,14 @@
 public class Update {
-    private String studentName;
+    private int id;
     private boolean status;
 
-    public Update(String studentName, boolean status) {
-        this.studentName = studentName;
+    public Update(int id, boolean status) {
+        this.id = id;
         this.status = status;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public int getID() {
+        return id;
     }
 
     public boolean getStatus() {
