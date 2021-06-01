@@ -52,27 +52,27 @@ public class Server {
 		}
 	}
 
-	public void sendNewIdToAll(int x, ServerSocketThread sender) {
+	public void sendNewIdToAll(Update u, ServerSocketThread sender) {
 		synchronized (socketList) {
 			Iterator<ServerSocketThread> i = socketList.iterator();
 			while (i.hasNext()) {
 				ServerSocketThread tmp = i.next();
 				if (tmp != sender) {
-					tmp.write(x);
+					tmp.write((u.getStatus ? 1 : -1) * u.getID());
 				}
 			}
 		}
 	}
 
-	public void updateID(int id, ServerSocketThread sender) {
+	public void updateID(Update u, ServerSocketThread sender) {
 		synchronized (ids) {
-			if (id > 0) {
-				ids.add(id);
+			if (u.getStatus()) {
+				ids.add(u.getID());
 			} else {
-				ids.remove(id * -1);
+				ids.remove(u.getID());
 			}
 		}
-		sendNewIdToAll(id, sender);
+		sendNewIdToAll(u, sender);
 	}
 
 	public synchronized void sendAllIds(ServerSocketThread sst) {
