@@ -32,7 +32,8 @@ public class Client {
 	public void read() {
 		try {
 			int id = is.readInt();
-			update(new Update(id > 0, Math.abs(id))); //UI needs to make the update(Update u) method
+			System.out.println(id);
+// 			update(new Update(id > 0, Math.abs(id))); //UI needs to make the update(Update u) method
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
