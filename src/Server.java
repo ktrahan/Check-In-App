@@ -58,7 +58,7 @@ public class Server {
 			while (i.hasNext()) {
 				ServerSocketThread tmp = i.next();
 				if (tmp != sender) {
-					tmp.write((u.getStatus ? 1 : -1) * u.getID());
+					tmp.write((u.getStatus() ? 1 : -1) * u.getID());
 				}
 			}
 		}
