@@ -38,7 +38,8 @@ public class ServerSocketThread extends Thread {
 	public void run() {
 		try {
 			while (socket.isConnected()) {
-				server.updateID(dis.readInt(), this);
+				int id = dis.readInt();
+				server.updateID(new Update(id < 0, Math.abs(id)), this);
 			}
 			System.out.println("Thread" + this.getId());
 		} catch (IOException e) { // Catches the IOException while the readInt method is blocking bc of closing
