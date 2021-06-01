@@ -1,5 +1,5 @@
 /*
-Socket Server class\
+Socket Server class
 Handles client connections and distributes student IDs to all connected clients
 */
 
@@ -30,6 +30,7 @@ public class Server {
 					ServerSocketThread sst = new ServerSocketThread(sc.accept(), this);
 					addSST(sst);
 					sst.start();
+					sendAllIds(sst);
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
