@@ -47,24 +47,27 @@ public class Server {
 		}
 	}
 
-	public void sendNewIdToAll(int x) {
+	public void sendNewIdToAll(int x, ServerSocketThread sender) {
 		synchronized (socketList) {
 			Iterator<ServerSocketThread> i = socketList.iterator();
 			while (i.hasNext()) {
-				i.next().write(x);
+				ServerSocketThread tmp = i.next();
+				if (tmp != sender) {
+					tmp.write(x);
+				}
 			}
 		}
 	}
 
-	public void updateID(int id) {
+	public void updateID(int id, ServerSocketThread sender) {
 		synchronized (ids) {
 			if (id > 0) {
 				ids.add(id);
 			} else {
-				ids.remove(id*-1);
+				ids.remove(id * -1);
 			}
 		}
-		sendNewIdToAll(id);
+		sendNewIdToAll(id, sender);
 	}
 
 	public synchronized void sendAllIds(ServerSocketThread sst) {
@@ -87,4 +90,3 @@ public class Server {
 		}
 	}
 }
-

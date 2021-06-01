@@ -33,13 +33,14 @@ public class ServerSocketThread extends Thread {
 	public void run() {
 		try {
 			while (socket.isConnected()) {
-				server.updateID(dis.readInt());
+				server.updateID(dis.readInt(), this);
 			}
-			System.out.println("Thread"+this.getId());
-		} catch (IOException e) { //Catches the IOException while the readInt method is blocking bc of closing client.
+			System.out.println("Thread" + this.getId());
+		} catch (IOException e) { // Catches the IOException while the readInt method is blocking bc of closing
+									// client.
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			
+			// e.printStackTrace();
+
 		} finally {
 			server.removeSST(this);
 			System.out.println("yo we removed this boy");
