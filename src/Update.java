@@ -2,7 +2,7 @@ public class Update {
     private int id;
     private boolean status;
 
-    public Update(int id, boolean status) {
+    public Update(boolean status, int id) {
         this.id = id;
         this.status = status;
     }
