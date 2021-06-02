@@ -24,7 +24,6 @@ public class Test {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         System.out.println(s.getAllIds());
@@ -34,7 +33,6 @@ public class Test {
         try {
             s.sc.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("c");

@@ -21,10 +21,8 @@ public class Client {
 			is = new DataInputStream(connection.getInputStream());
 			os = new DataOutputStream(connection.getOutputStream());
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -33,9 +31,9 @@ public class Client {
 		try {
 			int id = is.readInt();
 			System.out.println(id);
-// 			update(new Update(id > 0, Math.abs(id))); //UI needs to make the update(Update u) method
+			// update(new Update(id > 0, Math.abs(id))); //UI needs to make the
+			// update(Update u) method
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -44,7 +42,6 @@ public class Client {
 		try {
 			os.writeInt(x);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,7 +50,6 @@ public class Client {
 		try {
 			connection.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

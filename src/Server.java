@@ -19,7 +19,6 @@ public class Server {
 		try {
 			sc = new ServerSocket(8080);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		socketList = new ArrayList<ServerSocketThread>();
@@ -33,7 +32,6 @@ public class Server {
 					sendAllIds(sst);
 				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		};

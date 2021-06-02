@@ -21,7 +21,6 @@ public class ServerSocketThread extends Thread {
 			dis = new DataInputStream(socket.getInputStream());
 			dos = new DataOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -30,7 +29,6 @@ public class ServerSocketThread extends Thread {
 		try {
 			dos.writeInt(x);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -44,7 +42,6 @@ public class ServerSocketThread extends Thread {
 			System.out.println("Thread" + this.getId());
 		} catch (IOException e) { // Catches the IOException while the readInt method is blocking bc of closing
 									// client.
-			// TODO Auto-generated catch block
 			// e.printStackTrace();
 
 		} finally {
@@ -54,7 +51,6 @@ public class ServerSocketThread extends Thread {
 				socket.close();
 			} catch (IOException e) {
 				System.out.println("clsoe no wrok");
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
