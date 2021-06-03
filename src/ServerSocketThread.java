@@ -10,9 +10,9 @@ import java.net.Socket;
 
 public class ServerSocketThread extends Thread {
 	private Socket socket;
-	DataInputStream dis;
-	DataOutputStream dos;
-	Server server;
+	private DataInputStream dis;
+	private DataOutputStream dos;
+	private Server server;
 
 	public ServerSocketThread(Socket s, Server ser) {
 		socket = s;
