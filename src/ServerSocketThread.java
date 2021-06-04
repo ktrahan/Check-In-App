@@ -7,13 +7,24 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-
+/**
+ * A thread for the server to handle a client connection.
+ * @author Artin Kim
+ * @version 1.0
+ * @since 2021-05-27
+*/
 public class ServerSocketThread extends Thread {
 	private Socket socket;
-	DataInputStream dis;
-	DataOutputStream dos;
-	Server server;
+	private DataInputStream dis;
+	private DataOutputStream dos;
+	private Server server;
 
+  /**
+  *@param socket Socket created by accepting new client
+  *@param server Refernce to the server object which created ServerScoketThread
+  * Takes in a reference of the server object 
+  *Initailzes DataInputStream and DataOutputStream from the socket
+  */
 	public ServerSocketThread(Socket s, Server ser) {
 		socket = s;
 		server = ser;
@@ -24,7 +35,10 @@ public class ServerSocketThread extends Thread {
 			e.printStackTrace();
 		}
 	}
+  /**
+  *@param x Integer to send to client from DataOutputStream 
 
+  */
 	public void write(int x) {
 		try {
 			dos.writeInt(x);
@@ -32,7 +46,10 @@ public class ServerSocketThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+  /**
+  *implements abstract run method from thread.
+  *Waits to recieve new integer representing id.Then notifies server that a new id has been receieved by using an update object created from a recieved id and a reference to this ServerSocketThread. 
+  */
 	public void run() {
 		try {
 			while (socket.isConnected()) {
@@ -46,11 +63,9 @@ public class ServerSocketThread extends Thread {
 
 		} finally {
 			server.removeSST(this);
-			System.out.println("yo we removed this boy");
 			try {
 				socket.close();
 			} catch (IOException e) {
-				System.out.println("clsoe no wrok");
 				e.printStackTrace();
 			}
 		}

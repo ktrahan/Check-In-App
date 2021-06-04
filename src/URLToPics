@@ -1,0 +1,102 @@
+import java.net.URL;
+import java.lang.Object;
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+
+import java.awt.*;
+
+
+//image class
+class image {
+
+  //instance variables
+  private String csv;
+  
+  //default image if catch statement needs to be executed
+  private static final BufferedImage DEFAULT = new BufferedImage(10,10, BufferedImage.TYPE_INT_ARGB); 
+  
+  //array of buffered Images given to the UI group
+  private BufferedImage[] imageList;
+
+  //array of urls from the csv
+  private String[] urlList;
+
+  //private String space = " ";
+
+  //one argument constructor - takes a csv
+  public image(String csv) {
+    this.csv = csv; //assigns csv string to CSV variable
+    
+    //calls the method that creates the url list, later down in code
+    this.createUrlList(); 
+
+    //for loop that creates the array of Buffered Images
+    for (int i = 0; i < urlList.length; i++) {
+      //uses url array to create an image and adds it to image array
+      this.imageList[i] = imageGrab(urlList[i]);
+    }
+  }
+
+//returns list of images
+  public BufferedImage[] getImageArray() {
+    
+    return imageList;
+  }
+  
+  //returns length of the imageList array
+  public int getImageListSize(){
+    return imageList.length;
+  }
+
+  //Aidan and Daniel method
+  //assigns length and values to the array of urls
+  //method called in constructor
+  public void createUrlList() //set up to not return value
+  {   
+    //split creates an array of strings based on commas
+    String[] splitList = csv.split(", ");
+
+    //array of URL strings
+    urlList = new String[splitList.length];
+    //images from the array of strings
+    imageList = new BufferedImage[splitList.length];
+
+    //adds the string url from the split list to the url list
+    for(int i = 0; i < splitList.length; i++){
+      urlList[i] = splitList[i];
+    }
+
+  }
+
+  //method returns a Buffered Image from a url
+  public BufferedImage imageGrab(String picURL) {
+      //.trim() makes sure there are no spaces in url
+
+      String url = picURL.trim();
+
+
+      //Grabs an image from the trimmed url
+      BufferedImage img = null;
+
+      //try-catch to catch any errors in reading the url
+      try{
+        img = ImageIO.read(new URL(url));
+      } catch(IOException e){
+        img = DEFAULT;
+      }
+      return img;
+  }
+
+  //gets image from the image list, passing in the index
+  public ImageIcon getImage(int index) {
+      System.out.println("image: " + imageList[index]);
+      return new ImageIcon(imageList[index]);
+  }
+}

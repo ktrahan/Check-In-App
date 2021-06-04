@@ -37,4 +37,13 @@ public class Update {
     public boolean getStatus() {
         return status;
     }
+
+    /**
+     * Setter for status.
+     * 
+     * @param status The new student status to be assigned to this student.
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 }
