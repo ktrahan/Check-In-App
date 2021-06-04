@@ -16,25 +16,23 @@ public class Server {
 	HashSet<Integer> ids;
 
 	public Server() {
-		
+
 		// initializes serversocket
 		try {
 			sc = new ServerSocket(8080);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		// initializes list of ServerSocketThreads to an arraylist
 		// initializes list of ids to a hashset of integers
 		socketList = new ArrayList<ServerSocketThread>();
 		ids = new HashSet<Integer>();
-		
+
 		/*
-		 * accepts connection from client
-		 * creates new ServerSocketThread from acception of client
-		 * adds ServerSocketThread to list of all ServerSocketThreads
-		 * starts new ServerSocketThread
-		 * sends all current ids
+		 * accepts connection from client creates new ServerSocketThread from acception
+		 * of client adds ServerSocketThread to list of all ServerSocketThreads starts
+		 * new ServerSocketThread sends all current ids
 		 */
 		Runnable task = () -> {
 			try {
@@ -54,7 +52,8 @@ public class Server {
 
 	/**
 	 * adds ServerSocketThread to list of ServerSocketThreads
-	 * @param sst	ServerSocketThread to add to the list
+	 * 
+	 * @param sst ServerSocketThread to add to the list
 	 */
 	public void addSST(ServerSocketThread sst) {
 		synchronized (socketList) {
@@ -64,7 +63,8 @@ public class Server {
 
 	/**
 	 * removes a ServerSocketThread from the list
-	 * @param sst	ServerSocketThread to remove from list
+	 * 
+	 * @param sst ServerSocketThread to remove from list
 	 */
 	public void removeSST(ServerSocketThread sst) {
 		synchronized (socketList) {
@@ -74,11 +74,11 @@ public class Server {
 
 	/**
 	 * iterates through all ServerSocketThreads in socketList, excluding the sender
-	 * sends information about the Update object by using a negative value of the id to remove
-	 * and positive to add
+	 * sends information about the Update object by using a negative value of the id
+	 * to remove and positive to add
 	 * 
-	 * @param u		update object to remove or add id
-	 * @param sender	the ServerSocketThread that is sending the information
+	 * @param u      update object to remove or add id
+	 * @param sender the ServerSocketThread that is sending the information
 	 */
 	public void sendNewIdToAll(Update u, ServerSocketThread sender) {
 		synchronized (socketList) {
