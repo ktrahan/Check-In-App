@@ -92,6 +92,12 @@ public class Server {
 		}
 	}
 
+	/**
+	 * adds or removes an Update from the list of ids depending on it's status
+	 * 
+	 * @param u			Update to add or remove
+	 * @param sender	ServerSocketThread sending the information
+	 */
 	public void updateID(Update u, ServerSocketThread sender) {
 		synchronized (ids) {
 			if (u.getStatus()) {
@@ -102,7 +108,12 @@ public class Server {
 		}
 		sendNewIdToAll(u, sender);
 	}
-
+	
+	/**
+	 * writes all ids in list id to the client
+	 * 
+	 * @param sst	ServerSocketThread sending the information
+	 */
 	public synchronized void sendAllIds(ServerSocketThread sst) {
 		synchronized (ids) {
 			Iterator<Integer> i = ids.iterator();
@@ -112,6 +123,9 @@ public class Server {
 		}
 	}
 
+	/**
+	 * @return	an arraylist of all ids
+	 */
 	public ArrayList<Integer> getAllIds() {
 		synchronized (ids) {
 			ArrayList<Integer> arr = new ArrayList<Integer>();
