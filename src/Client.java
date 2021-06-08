@@ -2,7 +2,6 @@
 Client Object that allows for asynchronous communication with the server
  */
 
-import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -38,8 +37,8 @@ public class Client {
 		}
 
 		/*
-		 * sets up new thread to continually read data, and adds all data to
-		 * the readBuffer LinkedList.
+		 * sets up new thread to continually read data, and adds all data to the
+		 * readBuffer LinkedList.
 		 */
 		Runnable task = () -> {
 			try {
@@ -47,7 +46,7 @@ public class Client {
 					int id = dis.readInt();
 					synchronized (readBuffer) {
 						readBuffer.add(id);
-						System.out.println(id + ", " + Thread.currentThread());
+						// System.out.println(id + ", " + Thread.currentThread());
 					}
 				}
 			} catch (IOException e) {
@@ -61,7 +60,7 @@ public class Client {
 	/**
 	 * removes the last item in readBuffer
 	 * 
-	 * @return	the last item in readBuffer, or if the list is empty, 0
+	 * @return the last item in readBuffer, or if the list is empty, 0
 	 */
 	public int read() {
 		synchronized (readBuffer) {
@@ -71,11 +70,11 @@ public class Client {
 			return readBuffer.poll();
 		}
 	}
-	
+
 	/**
 	 * writes data to the socket
 	 * 
-	 * @param x		data to send, an int
+	 * @param x data to send, an int
 	 */
 	public void write(int x) {
 		try {

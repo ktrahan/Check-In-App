@@ -1,32 +1,33 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class Slave {
-  int slaveID; //this will be used to create a unique list of slaves on the master
-  int masterIP; //this will be used to identify the master
-  
-  //Constructor given slave and master IPs
-  public Slave(int IPAddress, int masterIP){
-    slaveID = IPAdress;
+  String slaveID; // this will be used to create a unique list of slaves on the master
+  int masterIP; // this will be used to identify the master
+
+  // Constructor given slave and master IPs
+  public Slave(String IPAddress, int masterIP) {
+    slaveID = IPAddress;
     this.masterIP = masterIP;
   }
-  
-  //Getting the slave IDs (which are also the Slave IPs)
-  public int getSlaveID(){
-    return(this.slaveID);
+
+  // Getting the slave IDs (which are also the Slave IPs)
+  public String getSlaveID() {
+    return (this.slaveID);
   }
- 
-  public setupSlave(){
+
+  public void setupSlave(int port){
     //setup client
-    Client cl = new Client(IPadress, port);
+    Client cl = new Client(slaveID, port);
 
     //setup CSV file reader
     BufferedReader br = new BufferedReader(new FileReader("//csvfilename"));
     String line = null;
 	  
     //hashmap
-    HashMap map = new HashMap();
+    HashMap<Integer, StudentShort> map = new HashMap<Integer, StudentShort>();
 
     //setup Student class variables
     int studentID = 0;
@@ -35,16 +36,16 @@ public class Slave {
 		
     //assuming CSV is in format (“studentname”, “studentID”)
     while ((line = br.readLine()) != null) {
-      String[] str = line.split(“,”);
+      String[] str = line.split(",");
       if(str[0] != /*whatever the header of the csv is*/){
-  	studentID = Integer.parseInt(str[1]);
-	name = str[0];
-	map.put(studentID, new StudentShort(name, studentID, false));
+  	    studentID = Integer.parseInt(str[1]);
+	      name = str[0];
+	      map.put(studentID, new StudentShort(name, studentID, false));
       }
     }
     
     //create an arraylist to store of all of the transactions
-    ArrayList<int> studID = new ArrayList<int>();
+    ArrayList<Integer> studID = new ArrayList<Integer>();
    
     //check prevent double reading by using the array to check to see if there are no more values
     int counter = 0;
@@ -64,35 +65,42 @@ public class Slave {
       }
     }
   }
-} 
+}
+
 class StudentShort {
-	int studentID;
-	String name;
-	public Boolean checkedIn;
-   	public StudentShort(String studname, int studId, Boolean checkIn){
-		studentID = studId;
-		name = studname;
-		checkedIn = checkIn;
-	}
-	 
-	//getters and setters
-	public int getStudentID() {
-		return(studentID);
-	}
-	public String getName() {
-		return(name);
-	}
-	public Boolean getCheckedIn() {
-		return(checkedIn);
-	}
-	public void setStudentID(int sid){
-		studentID = sid;
-	}
-	public void setName(String n){
-		name = n;
-	}
-	public void setCheckedIn(Boolean t){
-		checkedIn = t;
-	}
-	
+  int studentID;
+  String name;
+  public Boolean checkedIn;
+
+  public StudentShort(String studname, int studId, Boolean checkIn) {
+    studentID = studId;
+    name = studname;
+    checkedIn = checkIn;
+  }
+
+  // getters and setters
+  public int getStudentID() {
+    return (studentID);
+  }
+
+  public String getName() {
+    return (name);
+  }
+
+  public Boolean getCheckedIn() {
+    return (checkedIn);
+  }
+
+  public void setStudentID(int sid) {
+    studentID = sid;
+  }
+
+  public void setName(String n) {
+    name = n;
+  }
+
+  public void setCheckedIn(Boolean t) {
+    checkedIn = t;
+  }
+
 }

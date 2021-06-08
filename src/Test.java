@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        Server s = new Server();
+        Server s = new Server(8080);
         Client c1 = new Client("localhost", 8080);
         Client c2 = new Client("localhost", 8080);
         Client c3 = new Client("localhost", 8080);
@@ -22,11 +22,12 @@ public class Test {
             e1.printStackTrace();
         }
         System.out.println(s.getAllIds());
-        
+
         System.out.println("gggggggggg");
         System.out.println(c1.read());
         System.out.println("ddddddddddd");
         System.out.println(c2.read());
+        System.out.println(c3.read());
         System.out.println(c3.read());
         System.out.println(c3.read());
         System.out.println("ccccccccccccc");
@@ -40,6 +41,11 @@ public class Test {
             e1.printStackTrace();
         }
         System.out.println(s.getAllIds());
+        System.out.println("eeeeeeeeeeeeee");
+        System.out.println(c2.read());
+        System.out.println(c3.read());
+        System.out.println(c3.read());
+
         c1.close();
         c2.close();
         c3.close();

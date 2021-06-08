@@ -21,11 +21,11 @@ public class Server {
 	List<ServerSocketThread> socketList;
 	HashSet<Integer> ids;
 
-	public Server() {
+	public Server(int port) {
 
 		// initializes serversocket
 		try {
-			ss = new ServerSocket(8080);
+			ss = new ServerSocket(port);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -36,9 +36,9 @@ public class Server {
 		ids = new HashSet<Integer>();
 
 		/*
-		 * accepts connection from client, creates new ServerSocketThread from
-		 * client. adds ServerSocketThread to list of all ServerSocketThreads, starts
-		 * new ServerSocketThread, sends all current ids
+		 * accepts connection from client, creates new ServerSocketThread from client.
+		 * adds ServerSocketThread to list of all ServerSocketThreads, starts new
+		 * ServerSocketThread, sends all current ids
 		 */
 		Runnable task = () -> {
 			try {
@@ -97,13 +97,12 @@ public class Server {
 			}
 		}
 	}
-	
 
 	/**
 	 * adds or removes an Update from the list of ids depending on it's status
 	 * 
-	 * @param u			Update to add or remove
-	 * @param sender	ServerSocketThread sending the information
+	 * @param u      Update to add or remove
+	 * @param sender ServerSocketThread sending the information
 	 */
 	public void updateID(Update u, ServerSocketThread sender) {
 		synchronized (ids) {
@@ -115,11 +114,11 @@ public class Server {
 		}
 		sendNewIdToAll(u, sender);
 	}
-	
+
 	/**
 	 * writes all ids in list id to the client
 	 * 
-	 * @param sst	ServerSocketThread sending the information
+	 * @param sst ServerSocketThread sending the information
 	 */
 	public synchronized void sendAllIds(ServerSocketThread sst) {
 		synchronized (ids) {
@@ -131,7 +130,7 @@ public class Server {
 	}
 
 	/**
-	 * @return	an arraylist of all ids
+	 * @return an arraylist of all ids
 	 */
 	public ArrayList<Integer> getAllIds() {
 		synchronized (ids) {
