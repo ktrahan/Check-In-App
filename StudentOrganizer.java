@@ -6,9 +6,8 @@ class StudentOrganizer
   private ArrayList<Student> allStudents;
   private ArrayList<Student> studentsNotAtDance;
   private ArrayList<Student> studentsAtDance;
-  //Nathan Fadick
 
-  //This method takes in arraylists from one of the other teams to create an arraylist of students
+  //This method takes in arraylists from one of the other teams to create an arraylist of students. This will likely need to be adjusted once you know for sure how you want to transfer data to the database.
   public ArrayList<Student> takeInStudents(ArrayList<String> fnames, ArrayList<String> lnames, ArrayList<String> idNums, ArrayList<ImageIcon> pictures)
   {
     ArrayList<Student> takedInStudents = new ArrayList<Student>();
@@ -37,10 +36,10 @@ class StudentOrganizer
     return student.getCheckedIn();
   }
   // This method adds a student to the ArrayList
-  public static void addStudent(Student student){
+  public void addStudent(Student student){
     allStudents.add(student);
   }
-
+  // This method adds students that are at the dance to the at the dance ArrayList
   public ArrayList<Student> atDance(){
     for(int i = 0; i < allStudents.size(); i++){
       if(allStudents.get(i).getCheckedIn() == true){
@@ -49,7 +48,7 @@ class StudentOrganizer
     }
     return studentsAtDance;
   }
-
+  // This method adds students that are not at the dance to the not at the dance ArrayList
   public ArrayList<Student> notAtDance(){
     for(int i = 0; i < allStudents.size(); i++){
       if(allStudents.get(i).getCheckedIn() == false){
@@ -58,11 +57,8 @@ class StudentOrganizer
     }
     return studentsNotAtDance;
   }
-
+  // This method returns all of the students
   public ArrayList<Student> getStudents(){
     return allStudents;
-  }
-  public static void main(String[] args){
-    System.out.println("Test");
   }
 }
