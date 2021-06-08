@@ -6,23 +6,24 @@ public class searchStudent {
     int min = 0;
     int length = students.length - 1;
     while (min <= length) {
-      int middle = min + (length - min) / 2;
-      // Compares student
-      int compare = student.compareTo(students[middle]);
+      int mid = min + (length - min) / 2;
+      // Compares X/desired student
+      int compare = student.compareTo(students[mid]);
       // Checks to see if desired name in the middle of array
       if (compare == 0)
-        return middle;
-      // If x is less, the left side is where desired name is located
+        return mid;
+      // If compare is greater than 0, the right side is where desired name is located
       else if (compare > 0)
-        min = middle + 1;
-      // If x is greater, the right side is where the desired name is located
+        min = mid + 1;
+      // If compare is less than 0, the left side is where the desired name is located
       else
-        length = middle - 1;
+        length = mid - 1;
     }
     return -1; // Returns -1 if student is not in array
   }
 
   public static void main(String[] args) {
+    // Sample array for array of students
     String[] students = { "Corey", "Daniel", "David", "Lilala", "Nathan", "Tommy", "Randy", "Bob", "Fred", "Joe","Tom"};
     // Sorts the student array for the binary search
     Arrays.sort(students);
