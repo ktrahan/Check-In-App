@@ -1,3 +1,4 @@
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,18 +10,17 @@ import java.util.Queue;
 public class Client {
 	
 	Socket connection;
+	BufferedInputStream dis;
 	DataOutputStream dos;
-	DataInputStream dis;
 	Queue<Integer> readBuffer;
 	
 	public Client(String ip, int port) {
 		
 		readBuffer = new LinkedList<Integer>();
 		
-		// 3. Surround steps 4-9 in a try-catch block that catches any IOExceptions.
 		try {
 			connection = new Socket(ip, port);
-			dis = new DataInputStream(connection.getInputStream());
+			dis = new BufferedInputStream(connection.getInputStream());
 			dos = new DataOutputStream(connection.getOutputStream());
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -30,8 +30,12 @@ public class Client {
 		
 		Runnable task = () -> {
 			try {
-				while (!connection.isClosed()) {
+				while (connection.isConnected()) {
 					int id = dis.read();
+					synchronized (readBuffer) {
+						readBuffer.add(id);
+						System.out.println(id +", " + Thread.currentThread());
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -41,14 +45,12 @@ public class Client {
 		t.start();
 	}
 
-	public void read() {
-		try {
-			int id = dis.readInt();
-			System.out.println(id);
-			// update(new Update(id > 0, Math.abs(id))); //UI needs to make the
-			// update(Update u) method
-		} catch (IOException e) {
-			e.printStackTrace();
+	public int read() {
+		synchronized (readBuffer) {
+			System.out.println("++++++++++++++++++++++++++" + readBuffer.size());
+			int t = readBuffer.poll();
+			System.out.println("==========================" + t);
+			return t;
 		}
 	}
 

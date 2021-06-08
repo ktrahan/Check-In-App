@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Server {
-	ServerSocket sc;
+	ServerSocket ss;
 	List<ServerSocketThread> socketList;
 	HashSet<Integer> ids;
 
@@ -19,7 +19,7 @@ public class Server {
 
 		// initializes serversocket
 		try {
-			sc = new ServerSocket(8080);
+			ss = new ServerSocket(8080);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public class Server {
 		Runnable task = () -> {
 			try {
 				while (true) {
-					ServerSocketThread sst = new ServerSocketThread(sc.accept(), this);
+					ServerSocketThread sst = new ServerSocketThread(ss.accept(), this);
 					addSST(sst);
 					sst.start();
 					sendAllIds(sst);
