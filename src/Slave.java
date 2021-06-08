@@ -39,7 +39,7 @@ public class Slave {
       if(str[0] != /*whatever the header of the csv is*/){
   			studentID = Integer.parseInt(str[1]);
 	  		name = str[0];
-		  	map.put(studentID, new Student(name, studentID, false));
+		  	map.put(studentID, new StudentShort(name, studentID, false));
 	    }
     }
     
@@ -57,11 +57,42 @@ public class Slave {
 		//check the list of transactions
 		for(int stuID : studID){
 		  if (stuID > 0) {
-			  map.get(Math.abs(stuID)).checkedIn = true; //index the hashmap using the studentID, update the checkedIn variable of that object to be checked in
+			  map.get(Math.abs(stuID)).checkedIn(true); //index the hashmap using the studentID, update the checkedIn variable of that object to be checked in
 		  }
 		  else if (stuID < 0) {
-			  map.get(Math.abs(stuID)).checkedIn = false; //index the hashmap using the studentID, update the checkedOut variable of that object to be checked out
+			  map.get(Math.abs(stuID)).setCheckedIn(false); //index the hashmap using the studentID, update the checkedOut variable of that object to be checked out
       }
     }
   }
 } 
+class StudentShort {
+	int studentID;
+	String name;
+	public Boolean checkedIn;
+   	public StudentShort(String studname, int studId, Boolean checkIn){
+		studentID = studId;
+		name = studname;
+		checkedIn = checkIn;
+	}
+	 
+	//getters and setters
+	public int getStudentID() {
+		return(studentID);
+	}
+	public String getName() {
+		return(name);
+	}
+	public Boolean getCheckedIn() {
+		return(checkedIn);
+	}
+	public void setStudentID(int sid){
+		studentID = sid;
+	}
+	public void setName(String n){
+		name = n;
+	}
+	public void setCheckedIn(Boolean t){
+		checkedIn = t;
+	}
+	
+}
