@@ -17,7 +17,7 @@ class App {
     
     while(true){
     
-    //main loop, put that is run continuously here
+    //main loop, put code that is run continuously here
       
     }
     
