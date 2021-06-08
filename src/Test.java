@@ -11,6 +11,7 @@ public class Test {
         Client c2 = new Client("localhost", 8080);
         Client c3 = new Client("localhost", 8080);
         System.out.println("a");
+        System.out.println(c1.read());
         c1.write(3);
         System.out.println("aaaaaaaaaaa");
         c2.write(44141);
