@@ -5,6 +5,7 @@ class App {
   public static void main(String[] args){
     
     //For the GUI group to get user input (slave or master) the following scanner is temporary
+	  import java.util.Scanner;
 	  Scanner device = new Scanner(System.in);
 	  System.out.println(“IS THIS DEVICE A MASTER OR SLAVE”);
 	  String deviceResponse = device.nextLine();
