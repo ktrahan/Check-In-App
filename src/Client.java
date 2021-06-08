@@ -1,3 +1,7 @@
+/*
+Client Object that allows for asynchronous communication with the server
+ */
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,6 +11,11 @@ import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * @author Artin Kim, Arman Aryan, Adin Ackerman, Devin Merriett
+ * @version 1.0
+ * @since 2021-05-27
+ */
 public class Client {
 
 	Socket connection;
@@ -28,6 +37,10 @@ public class Client {
 			e.printStackTrace();
 		}
 
+		/*
+		 * sets up new thread to continually read data, and adds all data to
+		 * the readBuffer LinkedList.
+		 */
 		Runnable task = () -> {
 			try {
 				while (connection.isConnected()) {
@@ -45,6 +58,11 @@ public class Client {
 		t.start();
 	}
 
+	/**
+	 * removes the last item in readBuffer
+	 * 
+	 * @return	the last item in readBuffer, or if the list is empty, 0
+	 */
 	public int read() {
 		synchronized (readBuffer) {
 			if (readBuffer.size() == 0) {
@@ -53,7 +71,12 @@ public class Client {
 			return readBuffer.poll();
 		}
 	}
-
+	
+	/**
+	 * writes data to the socket
+	 * 
+	 * @param x		data to send, an int
+	 */
 	public void write(int x) {
 		try {
 			dos.writeInt(x);
@@ -62,8 +85,13 @@ public class Client {
 		}
 	}
 
+	/**
+	 * closes the socket, datainputstream, and dataoutputstream
+	 */
 	public void close() {
 		try {
+			dis.close();
+			dos.close();
 			connection.close();
 		} catch (IOException e) {
 			e.printStackTrace();

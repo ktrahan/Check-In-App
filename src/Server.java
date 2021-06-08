@@ -10,6 +10,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * 
+ * @author Artin Kim, Adin Ackerman
+ * @version 1.0
+ * @since 2021-05-27
+ */
 public class Server {
 	ServerSocket ss;
 	List<ServerSocketThread> socketList;
@@ -30,9 +36,9 @@ public class Server {
 		ids = new HashSet<Integer>();
 
 		/*
-		 * accepts connection from client creates new ServerSocketThread from acception
-		 * of client adds ServerSocketThread to list of all ServerSocketThreads starts
-		 * new ServerSocketThread sends all current ids
+		 * accepts connection from client, creates new ServerSocketThread from
+		 * client. adds ServerSocketThread to list of all ServerSocketThreads, starts
+		 * new ServerSocketThread, sends all current ids
 		 */
 		Runnable task = () -> {
 			try {

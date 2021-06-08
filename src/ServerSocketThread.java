@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 /**
  * A thread for the server to handle a client connection.
- * @author Artin Kim
+ * @author Artin Kim, Arman Aryan, Devin Merriett
  * @version 1.0
  * @since 2021-05-27
 */
@@ -68,6 +68,19 @@ public class ServerSocketThread extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	/**
+	 * closes the socket, datainputstream, and dataoutputstream
+	 */
+	public void close() {
+		try {
+			dis.close();
+			dos.close();
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
