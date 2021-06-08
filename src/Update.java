@@ -1,10 +1,4 @@
-/**
- * A wrapper class containing an ID and status representing a student.
- *
- * @author Peter Gao
- * @version 1.0
- * @since 2021-6-1
- */
+
 public class Update {
     private int id;
     private boolean status;
