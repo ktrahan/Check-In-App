@@ -1,5 +1,6 @@
 import java.util.*;
 import javax.swing.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -12,16 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Container;
 
-
 //Spring layout: https://docs.oracle.com/javase/tutorial/uiswing/layout/spring.html
 //Scroll bar if time: https://www.javatpoint.com/java-jscrollbar
 /*
 Coding Key 
 /* Section */ 
 // Code meaning 
-~Unfinished placeholder~ 
+//~Unfinished placeholder~ 
 */
-
 
 /*setting up the basic framework. initalization code*/ 
    public UI {
@@ -39,7 +38,17 @@ Coding Key
     //Copies "allStudents" into "workingArray"
     for (int i = 0; i < allStudents.size(); i++) {
             workingArray.add(allStudents.get(i));
-        }
+    }
+    private int totalCount = 0; //keeps track of number of students checked in    
+    //arraylist of object buttons 
+      ArrayList<JButton> studentButtons = new ArrayList<JButton>();
+      //use a for loop to make buttons (as many as there are students) and add to arraylist
+      for (int i = 0; i < workingArray.size(); i++) {
+          //ideally the buttons should be images
+          studentButtons.add(new JButton(workingArray.get(i).getPicture())); //this needs to get the URL; use ImageIO.read?
+          //add buttons to frame
+          frame.getContentPane().add(studentButtons.get(i));
+      }
     /*//Prepares GUI 
     public SwingSpringLayout(){
       prepareGUI();
@@ -57,10 +66,6 @@ Coding Key
         Container contentPane = frame.getContentPane();  
         frame.pack();
         frame.setVisible(true); 
-        //contentPane.setLayout(layout); 
-        //layout.putConstraint(SpringLayout.WEST, label, 6, SpringLayout.WEST, contentPane);
-        //contentPane.add(new JLabel("Label: "));
-        //contentPane.add(new JTextField("Text field", 15));
       }
       //Creates a copy of the original database and sorts it by numerical order with the quickSort algorithm
       ArrayList<Student> arrNum = new ArrayList<Student>();
@@ -86,23 +91,12 @@ Coding Key
     SpringLayout layout = new SpringLayout();
     
     //label that displays the totalCount (from greyPhoto)
-    JLabel checkedIntext = new JLabel("Checked In +" + totalCount);
+    JLabel checkedIntext = new JLabel("Checked In: " + totalCount);
     
-    //View all button
-    
-    ~Elisa and Ben~
-
-    // View remaining button 
-   
-   ~Elisa and Ben~
-
-    //Sort Buttons
-    
-
     // Searching for specific students - binarySearchName  
     JPanel panel = new JPanel();
     panel.setLayout(layout);
-    JLabel searchlabel = new JLabel("Search: ");
+    JLabel searchLabel = new JLabel("Search by student name: ");
     JTextField searchtextField = new JTextField("",binarySearchName);
     panel.add(searchlabel);
     panel.add(searchtextField);
@@ -110,13 +104,17 @@ Coding Key
     //Layout putConstraint
     //Header label on the top 
     layout.putConstraint(SpringLayout.NORTH, headerLabel,5);
-   
-   ~Adding the rest of the layouts~
+    //Check in label in the center 
+    layout.putConstraint(SpringLayout.CENTER, checkedIntext, 10);
+    //Search under the header 
+    layout.putConstraint(SpringLayout.CENTER, searchLabel, 10);
+    // View and remaining button on the right 
+    layout.putConstraint(SpringLayout.EAST, ~what was in the button~, 30);
+    layout.putConstraint(SpringLayout.EAST, ~what was in the button~, 30);
 
     } // ends showSpringLayout   
       
     /* View all method. When the button “All” is clicked, every student will show on screen, regardless of whether they’ve been checked in. This will be the default setting. */
-
     //Implement an action listener to define what should be done when an user performs certain operation. This displays the all button
     public void viewAll implements ActionListener() {
       //all button 
@@ -138,8 +136,6 @@ Coding Key
           } //end if 
          } // ends for 
        } //ends allbutton methods 
-     
-      } //ends public class main 
       
       /*viewRemain method creates a remaining button in the UI named labeled "Remaining". When the button is pressed by user, the UI layout changes from the default to one where only the students who are not yet checked in are displayed.*/
       
@@ -151,7 +147,9 @@ Coding Key
         frame.getContentPane().add(remainingbutton);
         frame.setVisible(true);
       
-        workingArray.setVisible(false); 
+      for(int i = 0; i < workingArray.size(); i++) {
+        workingArray(i).setVisible(false); 
+      }
 
         //finding the students that haven't been checked in
         for(int i = 0; i < workingArray.size(); i++) {
@@ -159,28 +157,29 @@ Coding Key
             workingArray(i).setVisible(true); 
             //UI displays only the information of not-checked in students 
           } //end if
+          i++
         } //end for
       } //end method viewRemain
 
-}
-    /** Method greyPhoto: Switches each photo to grey and back to color when clicked.
-    References the code from Tutorials Point for the grayscale conversion: https://www.tutorialspoint.com/java_dip/grayscale_conversion.htm
-    **/
-    private int count = 0;
-    private int totalCount = 0;
 
-    public void greyPhoto() {
-    //loop through entire arraylist of students
+    /** Method greyPhoto: When image is clicked, change photo to grayscale and back, change the checked-in count by +1/-1, and set the student to checked-in/unchecked-in.
+    **/
+    public void greyPhoto() { 
+      //loop through entire arraylist of students
+      //uses for-loop in order to specify which button is being clicked/being grayscaled
       for(int i = 0; i < workingArray.size(); i++) {
-        //tests if a student has been checked in
-        //true == convert to greyscale
-        if (workingArray.get(i).getCheckedIn()) {
-          //increment total number of students checked in
-          totalCount++:
-          testCheckIn++; //increments to keep track of whether the photo is gray/color, for later
+        //adds actionListener to each button in arraylist --> user click = action
+        studentButtons.get(i).addActionListener(new ActionListener() {
+          @Override
+          //if clicked, do this:
+          public void actionPerformed(ActionEvent a) {
+            //set this student to checked in
+            workingArray.get(i).setCheckedIn(true);
+            //increment total number of students checked in
+            totalCount++:
             try {
               //make a File copy of the original photo
-              File input = new File(workingArray.get(i).getPicture());
+              File input = new File(workingArray.get(i).getPicture()); //this needs to access the URL
               //read the image pixel data, width, height
               image = ImageIO.read(input);
               imageCopy = ImageIO.read(input); //to be used later to convert back to color
@@ -201,31 +200,35 @@ Coding Key
                  } //end inner for
                } //end outer for
 
-               //the outputed photo is now grayscale and renamed
+               //the outputed photo is now grayscaled and renamed
                File ouptut = new File("grayscale.jpg");
                ImageIO.write(image, "jpg", ouptut);
               } //end try
 
               //catch and print exception
               catch (Exception e) {
-                System.out.print("Exception: " + e.toString());
+                  System.out.print("Exception: " + e.toString());
               } //end catch
-          } //end if
-            
-          //reverse greyscale: when clicked again, grey photo changes back to color
-          //if student isn't checked in and the photo is grey (signified by testCheckIn having been incremented from 0), change the photo displayed to the colored photo
-          if ((workingArray.get(i).getCheckedIn() == false) && (testCheckIn > 0)) {
-            totalCount--; //decrement # of students checked in
-            //make a copy of the untouched original (colored) photo
-            File reOuptut = new File(workingArray.get(i).getPicture());
-            //uses a copy of the read photo (from above in Try{}) and the new color photo copy to display the colored photo
-            ImageIO.write(imageCopy, "jpg", reOuptut);
-          } //end if
-            
-          //reset for this particular student
-          testCheckIn = 0;
-       } //end for
-    } //end greyPhoto()
+            } //end actionPerformed() a
+
+            //reverse greyscale: when clicked again, grey photo changes back to color
+            public void actionPerformed(ActionEvent b) {
+              //tests if student is checked in (meaning it's grayscale) when clicked              
+              if(workingArray.get(i).getCheckedIn == true) {
+                totalCount--; //decrement # of students checked in
+                //set this student to not checked in
+                workingArray.get(i).setCheckedIn(false);
+
+                //make a copy of the untouched original (colored) photo
+                File reOuptut = new File(workingArray.get(i).getPicture());
+                //uses a copy of the read photo (from above in Try{}) and the new color photo copy to display colored photo
+                ImageIO.write(imageCopy, "jpg", reOuptut);
+              } //end if
+            } //end actionPerformed() b
+          } //end actionListener
+        } //end for loop
+      } //end greyPhoto()
+
     
     /**Part of the Quick Sort Algorithm. It compares numbers around a pivot point and swaps them so that all numbers smaller than the pivot number end up on below the pivot's index and all larger numbers end up above the pivot's index. It repeats this process through recursion until the entire ArrayList is sorted by increase number or alphabetical order. The boolean parameter "isNum" is true if sorting studentID and false if sorting student names.**/
     public static int partition(ArrayList<Student> arr, int low, int high, boolean isNum) {
@@ -304,3 +307,8 @@ Coding Key
         }
         return -1;
     }
+  public void searchPerformed(ActionEvent q) {
+    
+  }
+    
+  } //ends public class main 
