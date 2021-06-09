@@ -23,21 +23,21 @@ Coding Key
 */
 
 /*setting up the basic framework. initalization code*/ 
-   public UI {
+   public class UI {
     
     //Instance variables for the width, height, and testCheckIn to 0
     BufferedImage image;
     int width;
     int height;
     int testCheckIn = 0;
-
     //The original database that remains unchanged.
     ArrayList<Student> allStudents = new ArrayList<Student>();
     //The database that is changed/sorted and which appears in the GUI.
     ArrayList<Student> workingArray = new ArrayList<Student>();
-    //Copies "allStudents" into "workingArray"
-    for (int i = 0; i < allStudents.size(); i++) {
-            workingArray.add(allStudents.get(i));
+    //Creates a copy of the original database and sorts it in alphabetical order
+    ArrayList<Student> arrName = new ArrayList<Student>();
+    //Creates a copy of the original database and sorts it by numerical order with the quickSort algorithm
+    ArrayList<Student> arrNum = new ArrayList<Student>();
     }
     private int totalCount = 0; //keeps track of number of students checked in    
     //arraylist of object buttons 
@@ -54,35 +54,6 @@ Coding Key
       prepareGUI();
    }*/
   
-    public static void main(String args[]){
-      //Prepares SwingSpringLayout by initiating as swingLayout  
-      SwingSpringLayout swingLayout = new SwingSpringLayout();
-      swingLayout.showSpringLayout();
-
-        JFrame frame = new JFrame("SDA Check In");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300,300);
-      
-        Container contentPane = frame.getContentPane();  
-        frame.pack();
-        frame.setVisible(true); 
-      }
-      //Creates a copy of the original database and sorts it by numerical order with the quickSort algorithm
-      ArrayList<Student> arrNum = new ArrayList<Student>();
-      for (int i = 0; i < allStudents.size(); i++) {
-        arrNum.add(allStudents.get(i));
-      }
-      //It is necessary to add a large number at the end of the database in order for the quicksort to work properly
-      arrNum.add(new Student("zzz", "zzz", "9999999", null, false));
-      //Creates a copy of the original database and sorts it in alphabetical order
-      ArrayList<Student> arrName = new ArrayList<Student>();
-      for (int i = 0; i < allStudents.size(); i++) {
-        arrName.add(allStudents.get(i));
-      }
-      arrNum.add(new Student("zzz", "zzz", "9999999", null, false));
-      quickSort(arrNum, 0, arrNum.size()-1, true);
-      quickSort(arrName, 0, arrName.size()-1, false);
-      
     public void showSpringLayout() {
     
     //Top half
@@ -109,8 +80,8 @@ Coding Key
     //Search under the header 
     layout.putConstraint(SpringLayout.CENTER, searchLabel, 10);
     // View and remaining button on the right 
-    layout.putConstraint(SpringLayout.EAST, ~what was in the button~, 30);
-    layout.putConstraint(SpringLayout.EAST, ~what was in the button~, 30);
+    layout.putConstraint(SpringLayout.EAST, viewAll, 30);
+    layout.putConstraint(SpringLayout.EAST, viewRemain, 30);
 
     } // ends showSpringLayout   
       
@@ -307,8 +278,39 @@ Coding Key
         }
         return -1;
     }
-  public void searchPerformed(ActionEvent q) {
-    
-  }
-    
+    public void searchAction(ActionEvent r) {
+      int b = -1;
+      b = binarySearchNum(arrNum, 0, arrNum.size()-1, Integer.parseInt(searchtextField.getText())
+      workingArray.clear();
+      workingArray.add(arrNum.get(b));
+    }
+    public static void main(String args[]){
+      //Prepares SwingSpringLayout by initiating as swingLayout  
+      SwingSpringLayout swingLayout = new SwingSpringLayout();
+      swingLayout.showSpringLayout();
+
+        JFrame frame = new JFrame("SDA Check In");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300,300);
+      
+        Container contentPane = frame.getContentPane();  
+        frame.pack();
+        frame.setVisible(true); 
+      //Copies "allStudents" into "workingArray"
+      for (int i = 0; i < allStudents.size(); i++) {
+            workingArray.add(allStudents.get(i));
+      //Copies "allStudents" into arrNum
+      for (int i = 0; i < allStudents.size(); i++) {
+        arrNum.add(allStudents.get(i));
+      }
+      //It is necessary to add a large number at the end of the database in order for the quicksort to work properly
+      arrNum.add(new Student("zzz", "zzz", "9999999", null, false));
+      for (int i = 0; i < allStudents.size(); i++) {
+        arrName.add(allStudents.get(i));
+      }
+      arrNum.add(new Student("zzz", "zzz", "9999999", null, false));
+      quickSort(arrNum, 0, arrNum.size()-1, true);
+      quickSort(arrName, 0, arrName.size()-1, false);
+      }
+      }//ends public static void main(String args[])
   } //ends public class main 
