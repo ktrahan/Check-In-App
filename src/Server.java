@@ -42,6 +42,7 @@ public class Server {
 		 */
 		Runnable task = () -> {
 			try {
+				System.out.println("Server started on thread: " + Thread.currentThread());
 				while (true) {
 					ServerSocketThread sst = new ServerSocketThread(ss.accept(), this);
 					addSST(sst);
@@ -49,7 +50,8 @@ public class Server {
 					sendAllIds(sst);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				System.out.println("Server closed on thread: " + Thread.currentThread());
 			}
 		};
 		Thread t = new Thread(task);

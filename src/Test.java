@@ -46,9 +46,16 @@ public class Test {
         System.out.println(c3.read());
         System.out.println(c3.read());
 
-        c1.close();
-        c2.close();
         c3.close();
+        c1.write(5);
+        c1.close();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        System.out.println(c2.read());
+        c2.close();
         try {
             s.ss.close();
         } catch (IOException e) {

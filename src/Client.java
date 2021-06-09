@@ -42,6 +42,7 @@ public class Client {
 		 */
 		Runnable task = () -> {
 			try {
+				System.out.println("Client started on thread: " + Thread.currentThread());
 				while (connection.isConnected()) {
 					int id = dis.readInt();
 					synchronized (readBuffer) {
@@ -50,7 +51,8 @@ public class Client {
 					}
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
+				System.out.println("Client closed on thread: " + Thread.currentThread());
 			}
 		};
 		Thread t = new Thread(task);
@@ -93,7 +95,8 @@ public class Client {
 			dos.close();
 			connection.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.out.println("Closed client.");
 		}
 	}
 

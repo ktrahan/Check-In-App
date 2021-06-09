@@ -7,24 +7,26 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+
 /**
  * A thread for the server to handle a client connection.
+ * 
  * @author Artin Kim, Arman Aryan, Devin Merriett
  * @version 1.0
  * @since 2021-05-27
-*/
+ */
 public class ServerSocketThread extends Thread {
 	private Socket socket;
 	private DataInputStream dis;
 	private DataOutputStream dos;
 	private Server server;
 
-  /**
-  *@param socket Socket created by accepting new client
-  *@param server Refernce to the server object which created ServerScoketThread
-  * Takes in a reference of the server object 
-  *Initailzes DataInputStream and DataOutputStream from the socket
-  */
+	/**
+	 * @param socket Socket created by accepting new client
+	 * @param server Refernce to the server object which created ServerScoketThread
+	 *               Takes in a reference of the server object Initailzes
+	 *               DataInputStream and DataOutputStream from the socket
+	 */
 	public ServerSocketThread(Socket s, Server ser) {
 		socket = s;
 		server = ser;
@@ -35,10 +37,11 @@ public class ServerSocketThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-  /**
-  *@param x Integer to send to client from DataOutputStream 
 
-  */
+	/**
+	 * @param x Integer to send to client from DataOutputStream
+	 * 
+	 */
 	public void write(int x) {
 		try {
 			dos.writeInt(x);
@@ -46,12 +49,16 @@ public class ServerSocketThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-  /**
-  *implements abstract run method from thread.
-  *Waits to recieve new integer representing id.Then notifies server that a new id has been receieved by using an update object created from a recieved id and a reference to this ServerSocketThread. 
-  */
+
+	/**
+	 * implements abstract run method from thread. Waits to recieve new integer
+	 * representing id.Then notifies server that a new id has been receieved by
+	 * using an update object created from a recieved id and a reference to this
+	 * ServerSocketThread.
+	 */
 	public void run() {
 		try {
+			System.out.println("ServerSocketThread started on thread: " + Thread.currentThread());
 			while (socket.isConnected()) {
 				int id = dis.readInt();
 				server.updateID(new Update(id >= 0, Math.abs(id)), this);
@@ -59,18 +66,18 @@ public class ServerSocketThread extends Thread {
 			System.out.println("Thread" + this.getId());
 		} catch (IOException e) { // Catches the IOException while the readInt method is blocking bc of closing
 									// client.
-			// e.printStackTrace();
+			System.out.println("ServerSocketThread closed on thread: " + Thread.currentThread());
 
 		} finally {
 			server.removeSST(this);
 			try {
 				socket.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				// e.printStackTrace();
 			}
 		}
 	}
-	
+
 	/**
 	 * closes the socket, datainputstream, and dataoutputstream
 	 */
